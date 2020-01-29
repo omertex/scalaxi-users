@@ -20,19 +20,19 @@ function initialize() {
       }
 
       type Query {
-        user(userId: Int): User
-        subordinates(userId: Int): [User]
+        user(id: Int): User
+        subordinates(id: Int): [User]
       }
     `);
 
     // The root provides a resolver function for each API endpoint
     var root = {
-      user: async ({ userId }) => {
-        return await userService.getUser(userId);
+      user: async ({ id }) => {
+        return await userService.getUser(id);
       },
 
-      subordinates: async ({ userId }) => {
-        return await userService.getSubordinates(userId);
+      subordinates: async ({ id }) => {
+        return await userService.getSubordinates(id);
       },
     };
     const app = express();
