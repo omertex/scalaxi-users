@@ -1,17 +1,14 @@
 const usersDb = require('../users-db').data;
 
-async function getAll() {
-    return usersDb.map(e => {
-        return {
-            id: e.id,
-            userName: e.userName,
-            firstName: e.firstName,
-            lastName: e.lastName,
-            managerId: e.managerId
-        }
-    });
+async function getUser(userId) {
+    return usersDb.find(e => { return e.id === userId });
+}
+
+async function getSubordinates(userId) {
+    return usersDb.filter(e => { return e.managerId === userId });
 }
 
 module.exports = {
-    getAll
+    getUser,
+    getSubordinates
 }

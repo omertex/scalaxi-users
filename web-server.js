@@ -20,19 +20,20 @@ function initialize() {
       }
 
       type Query {
-        users: [User]
+        user(userId: Int): User
+        subordinates(userId: Int): [User]
       }
     `);
 
     // The root provides a resolver function for each API endpoint
     var root = {
-      users: () => {
-        return userService.getAll();
+      user: async ({ userId }) => {
+        return await userService.getUser(userId);
       },
 
-      token: ({ username, password }) => {
-        return userService.getUserToken(username, password);
-      }
+      subordinates: async ({ userId }) => {
+        return await userService.getSubordinates(userId);
+      },
     };
     const app = express();
     app.use('/graphql', graphqlHTTP({
