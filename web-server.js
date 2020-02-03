@@ -20,6 +20,7 @@ function initialize() {
       }
 
       type Query {
+        users: [User]
         user(id: Int): User
         subordinates(id: Int): [User]
       }
@@ -27,6 +28,11 @@ function initialize() {
 
     // The root provides a resolver function for each API endpoint
     var root = {
+
+      users: async () => {
+        return await userService.all();
+      },
+
       user: async ({ id }) => {
         return await userService.getUser(id);
       },
